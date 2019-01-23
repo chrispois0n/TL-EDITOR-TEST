@@ -1,0 +1,22 @@
+FROM node:8.9.1
+
+
+RUN mkdir -p /tl-editor
+
+
+COPY . /tl-editor 
+WORKDIR /tl-editor
+
+COPY package.json /tl-editor
+COPY package.ock.json /tl-editor
+RUN npm install
+
+ENV NODE_ENV=build
+
+COPY . /tl-editor
+RUN npm run build 
+
+ENV HOST 0.0.0.0
+EXPOSE 3000
+
+CMD [ "npm", "start"]
